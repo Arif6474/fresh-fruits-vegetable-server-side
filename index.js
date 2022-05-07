@@ -37,10 +37,29 @@ async function run() {
       res.send(fruit);
 
     })   
-   
-     
-     
-  
+
+    // update quantity
+    app.put('/fruit/:id' , async (req, res) => {
+      const id = req.params.id;
+      const newQuantity = req.body;
+      const filter = {_id: ObjectId(id)}
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          quantity : newQuantity.quantity
+        },
+      };
+      const result = await fruitsCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+    })
+
+      //delete
+      app.delete('/fruit/:id', async (req, res) =>{
+        const id = req.params.id;
+        const query = {_id : ObjectId(id)}
+        const result = await fruitsCollection.deleteOne(query);
+        res.send(result);
+    })
     } finally {
       
     }
