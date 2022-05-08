@@ -38,7 +38,7 @@ async function run() {
 
     })   
 
-    // update quantity
+    // update fruit quantity
     app.put('/fruit/:id' , async (req, res) => {
       const id = req.params.id;
       const newQuantity = req.body;
@@ -53,7 +53,7 @@ async function run() {
       res.send(result);
     })
 
-      //delete
+      //delete fruit item
       app.delete('/fruit/:id', async (req, res) =>{
         const id = req.params.id;
         const query = {_id : ObjectId(id)}
