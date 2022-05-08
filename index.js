@@ -69,9 +69,8 @@ async function run() {
     });
     // add item 
     app.get('/item', async (req, res) => {
-      const email = req.body;
-      console.log(email);
-       const query = {};
+      const email = req.query.email;
+      const query = {email: email};
        const cursor = fruitsCollection.find(query);
        const fruits = await cursor.toArray();
        res.send(fruits);
