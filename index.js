@@ -29,7 +29,7 @@ async function run() {
       const fruits = await cursor.toArray();
       res.send(fruits);
       })
-      //get fruits details
+      //get fruit details
     app.get('/fruit/:id' , async (req, res) => {
       const id = req.params.id;
       const query = {_id: ObjectId(id)}
@@ -46,7 +46,7 @@ async function run() {
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          quantity : newQuantity.quantity
+          quantity : newQuantity.newQuantity
         },
       };
       const result = await fruitsCollection.updateOne(filter, updateDoc, options);
@@ -60,6 +60,13 @@ async function run() {
         const result = await fruitsCollection.deleteOne(query);
         res.send(result);
     })
+     // post fruit
+     app.post('/fruit', async (req, res) => {
+      const newInventory = req.body;
+      const result = await fruitsCollection.insertOne(newInventory);
+      res.send(result);
+
+    });
     } finally {
       
     }
